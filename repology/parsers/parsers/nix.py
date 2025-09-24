@@ -219,10 +219,10 @@ class NixJsonParser(Parser):
                     pkg.set_summary(meta['description'].replace('\n', ' '))
 
                 if 'maintainers' in meta:
-                    maintainers = set(extract_nix_maintainers(meta['maintainers']))
+                    maintainers = list(extract_nix_maintainers(meta['maintainers']))
 
                     if len(maintainers) > 20:
-                        raise RuntimeError(f'too many maintainers ({len(maintainers)}: {", ".join(sorted(maintainers))}) for a single package')
+                        raise RuntimeError(f'too many maintainers ({len(maintainers)}: {", ".join(maintainers)}) for a single package')
 
                     pkg.add_maintainers(maintainers)
                     max_maintainers = max(max_maintainers, len(maintainers))
